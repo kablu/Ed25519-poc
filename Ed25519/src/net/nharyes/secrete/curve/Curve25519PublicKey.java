@@ -42,7 +42,7 @@ public class Curve25519PublicKey implements PublicKey {
 		key = new byte[Curve25519.KEY_SIZE];
 		System.arraycopy(pkey, 0, key, 0, pkey.length);
 	}
-
+ 
 	@Override
 	public String getAlgorithm() {
 

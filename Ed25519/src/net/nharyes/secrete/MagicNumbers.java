@@ -29,5 +29,5 @@ public class MagicNumbers {
 
 	public static final byte[] TEXT_MESSAGE = Hex.decode("5ECC0DE2");
 
-	public static final byte[] BINARY_MESSAGE = Hex.decode("5ECC0DE3");
+	public static final byte[] BINARY_MESSAGE = Hex.decode("5ECC0DE3"); 
 }

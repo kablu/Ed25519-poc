@@ -76,7 +76,7 @@ public class ECIES {
 			throw new ECIESException("SHA1PRNG algorithm not found", ex);
 		}
 	}
-
+ 
 	public static ECIESMessage encryptData(PublicKey key, String data, SecureRandom random) throws ECIESException {
 
 		try {

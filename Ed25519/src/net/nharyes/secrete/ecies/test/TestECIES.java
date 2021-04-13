@@ -46,7 +46,7 @@ public class TestECIES {
 		ECIESMessage message = ECIES.encryptData(keyPair.getPublic(), text);
 
 		assertFalse(message.isBinary());
-
+ 
 		byte[] data = ECIES.decryptMessage(keyPair.getPrivate(), message);
 
 		assertEquals(new String(data, ECIES.ENCODING), text);

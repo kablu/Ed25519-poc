@@ -42,7 +42,7 @@ public class TestECIESMessage {
 	}
 	
 	private void testSer(boolean binary) throws Exception {
-		
+		 
 		SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
 		
 		byte[] sh1 = new byte[ECIES.SHARED_INFORMATION_SIZE_BYTES];

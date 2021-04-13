@@ -41,7 +41,7 @@ public class TestCurve25519PublicKey {
 		Curve25519PublicKey pkey = (Curve25519PublicKey) keyPair.getPublic();
 
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
-
+ 
 		pkey.serialize(bout);
 
 		byte[] serialized = bout.toByteArray();
