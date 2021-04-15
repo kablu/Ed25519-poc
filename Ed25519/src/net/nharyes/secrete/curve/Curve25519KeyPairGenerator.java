@@ -28,7 +28,7 @@ import djb.Curve25519;
 public class Curve25519KeyPairGenerator {
 
 	public static KeyPair generateKeyPair(SecureRandom random) {
-
+ 
 		// generate private key
 		byte[] pri = new byte[Curve25519.KEY_SIZE];
 		random.nextBytes(pri);

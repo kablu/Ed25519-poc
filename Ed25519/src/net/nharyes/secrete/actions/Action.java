@@ -56,10 +56,12 @@ public abstract class Action {
 
 	Object readData(String file, String type) throws IOException, ActionException {
 
+		System.out.println("readData..");
+		
 		if (file == null) {
 
 			// get console
-			Console c = getConsole();
+			Console c = getConsole(); 
 
 			// read message
 			System.out.println(String.format("Insert %s and end with '.'", type));
@@ -76,8 +78,9 @@ public abstract class Action {
 
 			} while (!read.equalsIgnoreCase("."));
 
+			System.out.println("String input:" + sb.toString());
 			return sb.toString();
-
+ 
 		} else {
 
 			// load file
@@ -92,6 +95,65 @@ public abstract class Action {
 
 	void writeData(byte[] data, String file, boolean binary) throws IOException {
 
+		System.out.println("@@inside writeData...");
+		if (file != null) {
+
+			// write data
+			FileOutputStream fout = new FileOutputStream(file);
+			fout.write(data);
+			fout.close();
+
+		} else {
+ 
+			// output data
+			String sData;
+			if (binary)
+				sData = new String(Base64.encodeBase64(data, true, false), ECIES.ENCODING);
+			else
+				sData = new String(data, ECIES.ENCODING);
+			System.out.println(String.format("%n---%n%s", sData));
+		}
+	}
+	
+	String writePublicKeyData(byte[] data, String file, boolean binary) throws IOException {
+
+		System.out.println("@@inside writeData...");
+		String sData = null;
+		if (file != null) {
+			FileOutputStream fout = new FileOutputStream(file);
+			fout.write(data);
+			fout.close();
+		} else {
+			if (binary)
+				sData = new String(Base64.encodeBase64(data, true, false), ECIES.ENCODING);
+			else
+				sData = new String(data, ECIES.ENCODING);
+			System.out.println(String.format("%n---%n%s", sData));
+		}
+		return sData;
+	}
+	
+	String writeDecryptData(byte[] data, String file, boolean binary) throws IOException {
+
+		System.out.println("@@inside writeDecryptData...");
+		String sData = null;
+		if (file != null) {
+			FileOutputStream fout = new FileOutputStream(file);
+			fout.write(data);
+			fout.close();
+		} else {
+			if (binary)
+				sData = new String(Base64.encodeBase64(data, true, false), ECIES.ENCODING);
+			else
+				sData = new String(data, ECIES.ENCODING);
+				System.out.println(String.format("%n---%n%s", sData));
+		}
+		return sData;
+	}
+	
+	 void writeDataOfPublicKey(byte[] data, String file, boolean binary) throws IOException {
+		 System.out.println("");
+		System.out.println("@@inside writeDataOfPublicKey...");
 		if (file != null) {
 
 			// write data

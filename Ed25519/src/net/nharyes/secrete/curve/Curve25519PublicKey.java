@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.PublicKey;
+import java.util.Base64;
 
 import net.nharyes.secrete.MagicNumbers;
 
@@ -37,7 +38,7 @@ public class Curve25519PublicKey implements PublicKey {
 
 	private final byte[] key;
 
-	protected Curve25519PublicKey(byte[] pkey) {
+	public Curve25519PublicKey(byte[] pkey) {
 
 		key = new byte[Curve25519.KEY_SIZE];
 		System.arraycopy(pkey, 0, key, 0, pkey.length);
@@ -76,6 +77,9 @@ public class Curve25519PublicKey implements PublicKey {
 		// return key instance
 		return new Curve25519PublicKey(key);
 	}
+	
+	
+	
 
 	public void serialize(OutputStream out) throws IOException {
 

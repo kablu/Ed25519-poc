@@ -173,7 +173,7 @@ public class ECIES {
 			return ies.processBlock(message.getCd(), 0, message.getCd().length);
 
 		} catch (InvalidCipherTextException ex) {
-
+			ex.printStackTrace();
 			throw new ECIESException("Message corrupted or wrong key", ex);
 		}
 	}

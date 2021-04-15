@@ -24,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.KeyPair;
 import java.security.SecureRandom;
+import java.util.Base64;
 
 import net.nharyes.secrete.curve.Curve25519KeyPairGenerator;
 import net.nharyes.secrete.curve.Curve25519PrivateKey;
@@ -38,17 +39,20 @@ public class GenKeysAction extends Action {
 	public void execute(CommandLine line, SecureRandom random) throws ActionException {
 
 		try {
-
+ 
 			// generate keys
 			KeyPair keyPair = Curve25519KeyPairGenerator.generateKeyPair(random);
 
 			// store public key
 			FileOutputStream fout = new FileOutputStream(DEFAULT_PUBLIC_KEY);
 			Curve25519PublicKey pkey = (Curve25519PublicKey) keyPair.getPublic();
+			
+			System.out.println("Curve25519PublicKey Encoded:" + Base64.getEncoder().encodeToString(pkey.getEncoded()));
+			System.out.println("Encoded:" + Base64.getEncoder().encodeToString(new String(pkey.getEncoded()).getBytes()));
 			pkey.serialize(fout);
 			fout.flush();
 			fout.close();
-
+ 
 			// get console
 			Console c = getConsole();
 
@@ -66,6 +70,7 @@ public class GenKeysAction extends Action {
 			// store private key
 			fout = new FileOutputStream(DEFAULT_PRIVATE_KEY);
 			Curve25519PrivateKey key = (Curve25519PrivateKey) keyPair.getPrivate();
+			System.out.println("Curve25519PrivateKey Encoded:" + Base64.getEncoder().encodeToString(key.getEncoded()));
 			key.serialize(fout, passwordRepeated);
 			fout.flush();
 			fout.close();

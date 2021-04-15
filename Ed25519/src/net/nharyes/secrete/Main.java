@@ -137,7 +137,7 @@ public class Main {
 		}
 	}
 
-	public static String getProgramFolder() {
+	public static String getProgramFolder() { 
 
 		String sFolder = String.format("%s%c.secrete", System.getProperty("user.home"), File.separatorChar);
 

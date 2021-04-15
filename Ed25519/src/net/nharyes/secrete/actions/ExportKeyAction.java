@@ -32,7 +32,7 @@ public class ExportKeyAction extends Action {
 
 	public void execute(CommandLine line, SecureRandom random) throws ActionException {
 
-		try {
+		try { 
 
 			// load public key
 			FileInputStream fin = new FileInputStream(DEFAULT_PUBLIC_KEY);

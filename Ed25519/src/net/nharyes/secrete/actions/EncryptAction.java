@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015  Luca Zanconato (<luca.zanconato@nharyes.net>)
+ 
  *
  * This file is part of Secrete.
  *
@@ -23,6 +23,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.SecureRandom;
+import java.util.Base64;
 
 import net.nharyes.secrete.curve.Curve25519PublicKey;
 import net.nharyes.secrete.ecies.ECIES;
@@ -35,18 +36,21 @@ public class EncryptAction extends Action {
 
 	public void execute(CommandLine line, SecureRandom random) throws ActionException {
 
+		System.out.println("@@inside execute.EncryptAction..");
 		try {
 
 			// read data
 			Object data = readData(line.getOptionValue('i'), "message");
-
+ 
 			// load public key
 			String keyToLoad = DEFAULT_PUBLIC_KEY;
 			if (line.hasOption('k'))
 				keyToLoad = line.getOptionValue('k');
 			FileInputStream fin = new FileInputStream(keyToLoad);
-			Curve25519PublicKey key = Curve25519PublicKey.deserialize(fin);
-
+			//Curve25519PublicKey key = Curve25519PublicKey.deserialize(fin);
+			System.out.println("Public Key Read");
+			Curve25519PublicKey key = readPublicKey();
+			System.out.println("Public Key Read finished..");
 			// encrypt message
 			ECIESMessage message;
 			if (line.hasOption('i'))
@@ -64,5 +68,51 @@ public class EncryptAction extends Action {
 			// re-throw exception
 			throw new ActionException(ex.getMessage(), ex);
 		}
+	}
+	
+	public String executeEncrypt(SecureRandom random, String publicKey, String data) throws ActionException {
+
+		System.out.println("@@inside execute.EncryptAction..");
+
+		String encryptdData = null;
+		try {
+
+			// Curve25519PublicKey key = Curve25519PublicKey.deserialize(fin);
+			System.out.println("Public Key Read");
+			
+			Curve25519PublicKey key = readPublicKey(publicKey);
+			
+			System.out.println("Public Key Read finished..");
+			// encrypt message
+			ECIESMessage message;
+			message = ECIES.encryptData(key, (String) data, random);
+
+			// write message
+			ByteArrayOutputStream bout = new ByteArrayOutputStream();
+			message.serialize(bout);
+			encryptdData = writePublicKeyData(bout.toByteArray(), null, true);
+
+		} catch (IOException | ECIESException ex) {
+			ex.printStackTrace();
+			throw new ActionException(ex.getMessage(), ex);
+		}
+
+		return encryptdData;
+	}
+	
+	public static Curve25519PublicKey readPublicKey() throws IOException {
+
+		System.out.println("@@inside readPublicKey..");
+		byte[] pubKey = Base64.getDecoder().decode("lCI84I0Q0U0wQ/T+cxP25+a+9sK8sstBpulLa+4iqEY=".getBytes());
+		
+		return new Curve25519PublicKey(pubKey);
+	}
+	
+	public static Curve25519PublicKey readPublicKey(String publicKey) throws IOException {
+
+		System.out.println("@@inside readPublicKey..");
+		byte[] pubKey = Base64.getDecoder().decode(publicKey.getBytes());
+		
+		return new Curve25519PublicKey(pubKey);
 	}
 }

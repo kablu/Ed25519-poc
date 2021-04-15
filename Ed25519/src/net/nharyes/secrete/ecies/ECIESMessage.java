@@ -100,7 +100,7 @@ public class ECIESMessage {
 		out.write(iv);
 		out.write(R);
 		out.flush();
-
+ 
 		// write CD size
 		ByteBuffer b = ByteBuffer.allocate(4);
 		b.order(ByteOrder.BIG_ENDIAN);

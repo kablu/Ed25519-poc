@@ -57,7 +57,7 @@ public class Curve25519PrivateKey implements PrivateKey {
 
 	private final byte[] key;
 
-	protected Curve25519PrivateKey(byte[] pkey) {
+	public Curve25519PrivateKey(byte[] pkey) {
 
 		key = new byte[Curve25519.KEY_SIZE];
 		System.arraycopy(pkey, 0, key, 0, key.length);
@@ -120,7 +120,7 @@ public class Curve25519PrivateKey implements PrivateKey {
 	}
 
 	public void serialize(OutputStream out, char[] password) throws IOException {
-
+ 
 		try {
 
 			// generate initial vector
@@ -159,7 +159,7 @@ public class Curve25519PrivateKey implements PrivateKey {
 
 			throw new UnsupportedOperationException(ex.getMessage(), ex);
 		}
-	}
+	} 
 
 	private static byte[] deriveKey(char[] password, byte[] salt) throws UnsupportedEncodingException {
 
